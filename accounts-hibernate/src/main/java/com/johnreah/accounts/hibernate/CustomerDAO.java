@@ -43,7 +43,7 @@ public class CustomerDAO {
         c.setReference("C" + UUID.randomUUID().toString().replace("-", "").substring(0, 8));
         entityManager.getTransaction().begin();
         this.customerHome.persist(c);
-        entityManager.getTransaction().commit();//TODO: why is @Id not populated??
+        entityManager.getTransaction().commit();//TODO: why is @Id not read correctly from DB?
         System.out.println("id " + c.getId());
         return c;
     }

@@ -30,6 +30,7 @@
     <modules>
         <module>accounts-netbeans</module>
         <module>accounts-hibernate</module>
+        <module>accounts-telosys-jpa</module>
     </modules>
 
     <dependencies>
