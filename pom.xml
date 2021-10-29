@@ -29,7 +29,7 @@
 
     <modules>
         <module>accounts-netbeans</module>
-<!--        <module>accounts-hibernate</module>-->
+        <module>accounts-hibernate</module>
     </modules>
 
     <dependencies>
