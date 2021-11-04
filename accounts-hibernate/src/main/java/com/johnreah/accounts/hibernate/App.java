@@ -16,9 +16,12 @@ class App {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         CustomerDAO customerDAO = new CustomerDAO(entityManager);
-        customerDAO.createNewCustomer("Hibernate", "User", "hibernate.user+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
 
-        customerDAO.findAllCustomers().stream().forEach(c -> System.out.println("Customer: " + c.toString()));
+        customerDAO.findAllCustomers().stream().forEach(c -> customerDAO.delete(c));
+
+        customerDAO.createNewCustomer("Hibernate", "User", "hibernate.user+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@org.demo.com");
+
+        customerDAO.findAllCustomers().stream().forEach(c -> System.out.println("Customer: " + c.toString() + " " + c.getEmail()));
     }
 
 }

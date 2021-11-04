@@ -72,4 +72,7 @@ public class CustomerDAO {
         return q.getResultList();
     }
 
+    public void delete(Customer customer) {
+        entityManager.remove(customer);
+    }
 }
