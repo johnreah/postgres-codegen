@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class App {
+public class App {
 
     public static void main(String[] args) throws NoSuchFieldException, InstantiationException, IllegalAccessException {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("accounts_hibernate");
