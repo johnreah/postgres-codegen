@@ -14,26 +14,43 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <hibernate.version>6.0.0.Alpha5</hibernate.version>
+        <hibernate.tools.version>6.0.0.Alpha5</hibernate.tools.version>
+
         <postgres.version>42.2.23</postgres.version>
     </properties>
 
     <dependencies>
+
+<!--        <dependency>-->
+<!--            <groupId>org.eclipse.persistence</groupId>-->
+<!--            <artifactId>eclipselink</artifactId>-->
+<!--            <version>2.5.2</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb-api</artifactId>
+            <version>3.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
         </dependency>
+
+        <!-- ormlite -->
+<!--        <dependency>-->
+<!--            <groupId>com.j256.ormlite</groupId>-->
+<!--            <artifactId>ormlite-jdbc</artifactId>-->
+<!--            <version>5.0</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -42,12 +59,12 @@
             <plugin>
                 <groupId>org.hibernate.tool</groupId>
                 <artifactId>hibernate-tools-maven</artifactId>
-                <version>${hibernate.version}</version>
+                <version>${hibernate.tools.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.hibernate.tool</groupId>
                         <artifactId>hibernate-tools-orm</artifactId>
-                        <version>${hibernate.version}</version>
+                        <version>${hibernate.tools.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.postgresql</groupId>
@@ -67,6 +84,7 @@
                             <jdk5>true</jdk5>
                             <packageName>com.johnreah.accounts.hibernate.generated</packageName>
                             <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
+                            <templatePath>${basedir}/src/main/resources/templates</templatePath>
                         </configuration>
                     </execution>
                     <execution>
@@ -83,6 +101,9 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <revengFile>src/main/resources/hibernate.reveng.xml</revengFile>
+                </configuration>
             </plugin>
 
             <plugin>

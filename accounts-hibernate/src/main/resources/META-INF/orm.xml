@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" version="2.0">
+    <persistence-unit-metadata>
+        <persistence-unit-defaults>
+            <!--
+                Access can be FIELD or PROPERTY. According to the link below, setting this to FIELD should cause
+                hbm2java to generate field annotations rather than property (getter) annotations. I couldn't make
+                this work, and instead used the template override approach described in the same article. However
+                you do need to set it to FIELD after making this change so that Hibernate looks for annotated
+                fields rather than property getters.
+                https://stackoverflow.com/questions/1861817/hibernate-moving-annotations-from-property-method-level-to-field-level
+            -->
+            <access>FIELD</access>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+</entity-mappings>

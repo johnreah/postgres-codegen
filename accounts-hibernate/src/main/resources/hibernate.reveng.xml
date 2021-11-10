@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC
+        "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<!--        <table-filter match-name="customer" exclude="false"/>-->
+
+<!--    <table name="customer">-->
+<!--        <meta attribute="class-code">-->
+<!--            private void myMethod(String s) {-->
+<!--            System.out.println(s);-->
+<!--            }-->
+<!--        </meta>-->
+<!--        <primary-key>-->
+<!--            <generator class="sequence">-->
+<!--                <param name="table">seq_table</param>-->
+<!--            </generator>-->
+<!--            <key-column name="idx"></key-column>-->
+<!--        </primary-key>-->
+<!--    </table>-->
+
+    <table schema="public" name="customer">
+        <meta attribute="class-description">
+            Javadoc for the auto-generated Customer class
+            inserted by the hibernate.reveng.xml config file
+        </meta>
+<!--        <meta attribute="class-code">-->
+<!--            private void myMethod(String s) {-->
+<!--            System.out.println(s);-->
+<!--            }-->
+<!--        </meta>-->
+        <meta attribute="access">FIELD</meta>
+        <primary-key>
+            <generator class="identity"></generator>
+        </primary-key>
+    </table>
+
+</hibernate-reverse-engineering>
