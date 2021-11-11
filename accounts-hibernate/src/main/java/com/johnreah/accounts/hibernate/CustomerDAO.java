@@ -4,6 +4,7 @@ import com.johnreah.accounts.hibernate.generated.Customer;
 import com.johnreah.accounts.hibernate.generated.CustomerHome;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -36,41 +37,33 @@ public class CustomerDAO implements DAO<CustomerEntityPOJO> {
 
     @Override
     public void create(CustomerEntityPOJO customerEntityPOJO) {
-        Customer customer = new Customer();
-        customer.setFirstName(customerEntityPOJO.getFirstName());
-        customer.setLastName(customerEntityPOJO.getLastName());
-        customer.setEmail(customerEntityPOJO.getEmail());
-        customerEntityPOJO.setReference(customerEntityPOJO.getReference());
-        this.customerHome.persist(customer);
+        Customer customer = CustomerMapper.pojoToEntity(customerEntityPOJO);
+        customer.setId(600L);
+        Customer newCustomer = this.customerHome.merge(customer);
+        System.out.println("Merged: " + newCustomer.getId());
     }
 
-//    public Customer createNewCustomer(String firstName, String lastName, String email) {
-//        Customer c = new Customer();
-//        c.setFirstName(firstName);
-//        c.setLastName(lastName);
-//        c.setEmail(email);
-//        c.setReference("C" + UUID.randomUUID().toString().replace("-", "").substring(0, 8));
-//        entityManager.getTransaction().begin();
-//        this.customerHome.persist(c);
-//        entityManager.getTransaction().commit();//TODO: why is @Id not read correctly from DB?
-//        System.out.println("id " + c.getId());
-//        return c;
-//    }
-
-    public int countCustomers() {
-        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
-        Root<Customer> rt = cq.from(Customer.class);
-        cq.select(entityManager.getCriteriaBuilder().count(rt));
-        Query q = entityManager.createQuery(cq);
-        Object o = q.getSingleResult();
-        return ((Long) o).intValue();
+    @Override
+    public void edit(CustomerEntityPOJO entity) {
     }
 
-    public List<Customer> findAllCustomers() {
-        return this.findCustomerEntities(true, -1, -1);
+    @Override
+    public void destroy(CustomerEntityPOJO customerEntityPOJO) {
+        Customer customer = CustomerMapper.pojoToEntity(customerEntityPOJO);
+        customerHome.remove(customerHome.findById(customerEntityPOJO.getId()));
     }
 
-    private List<Customer> findCustomerEntities(boolean all, int maxResults, int firstResult) {
+    @Override
+    public List<CustomerEntityPOJO> findAll() {
+        return this.find(true, -1, -1);
+    }
+
+    @Override
+    public List<CustomerEntityPOJO> find(int maxResults, int firstResult) {
+        return this.find(false, maxResults, firstResult);
+    }
+
+    private List<CustomerEntityPOJO> find(boolean all, int maxResults, int firstResult) {
         CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Customer.class));
         Query q = entityManager.createQuery(cq);
@@ -78,32 +71,9 @@ public class CustomerDAO implements DAO<CustomerEntityPOJO> {
             q.setMaxResults(maxResults);
             q.setFirstResult(firstResult);
         }
-        return q.getResultList();
-    }
-
-    public void delete(Customer customer) {
-        entityManager.remove(customer);
-    }
-
-
-    @Override
-    public void edit(CustomerEntityPOJO entity) {
-
-    }
-
-    @Override
-    public void destroy(Long id) {
-
-    }
-
-    @Override
-    public List<CustomerEntityPOJO> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<CustomerEntityPOJO> find(int maxResults, int firstResult) {
-        return null;
+        List<CustomerEntityPOJO> customerEntityPOJOList = new ArrayList<>();
+        q.getResultList().stream().forEach(c -> customerEntityPOJOList.add(CustomerMapper.entityToPOJO((Customer) c)));
+        return customerEntityPOJOList;
     }
 
     @Override
@@ -113,6 +83,12 @@ public class CustomerDAO implements DAO<CustomerEntityPOJO> {
 
     @Override
     public int count() {
-        return 0;
+        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+        Root<Customer> rt = cq.from(Customer.class);
+        cq.select(entityManager.getCriteriaBuilder().count(rt));
+        Query q = entityManager.createQuery(cq);
+        Object o = q.getSingleResult();
+        return ((Long) o).intValue();
     }
+
 }

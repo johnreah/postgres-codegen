@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface DAO<T extends EntityPOJO> {
 
-    public void create(T entity);
+    public void create(T pojo);
 
-    public void edit(T entity);
+    public void edit(T pojo);
 
-    public void destroy(Long id);
+    public void destroy(T pojo);
 
     public List<T> findAll();
 
