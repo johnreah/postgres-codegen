@@ -5,14 +5,14 @@ import javax.persistence.EntityManagerFactory;
 
 public class Service {
 
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManager entityManager;
 
-    public Service(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+    public Service(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
-    public EntityManagerFactory getEntityManagerFactory() {
-        return this.entityManagerFactory;
+    public EntityManager getEntityManager() {
+        return this.entityManager;
     }
 
 

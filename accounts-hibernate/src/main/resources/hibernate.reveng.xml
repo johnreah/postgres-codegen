@@ -35,5 +35,18 @@
             <generator class="identity"></generator>
         </primary-key>
     </table>
+    
+    <table schema="public" name="account_type">
+        <primary-key>
+            <generator class="identity"></generator>
+        </primary-key>
+    </table>
+
+    <table schema="public" name="account">
+        <primary-key>
+            <generator class="identity"></generator>
+        </primary-key>
+<!--        <column name="balance_timestamp" type="java.time.LocalDateTime"></column>-->
+    </table>
 
 </hibernate-reverse-engineering>

@@ -18,7 +18,12 @@ import javax.persistence.criteria.Root;
  * it into the auto-generated version. It also adds any other DAO methods required
  * by the application.
  *
- * @author johnreah
+ * The generated CustomerHome class doesn't do much, providing only the thinnest wrapper around 4 basic EntityManager
+ * methods. For this reason we hang on to the EntityManager object to provide more DAO functionality. In fact we could
+ * easily forget about the generated DAOs altogether.
+ *
+ * This layer hides the generated entities and DAOs. It exposes whatever methods we choose (including CRUD) and
+ * uses POJOs rather than annotated entities to represent objects. CustomerMapper translates between them.
  */
 public class CustomerDAO implements DAO<CustomerEntityPOJO> {
 
@@ -38,9 +43,9 @@ public class CustomerDAO implements DAO<CustomerEntityPOJO> {
     @Override
     public void create(CustomerEntityPOJO customerEntityPOJO) {
         Customer customer = CustomerMapper.pojoToEntity(customerEntityPOJO);
-        customer.setId(600L);
         Customer newCustomer = this.customerHome.merge(customer);
         System.out.println("Merged: " + newCustomer.getId());
+        customerEntityPOJO.setId(newCustomer.getId()); // TODO - is it ok to modify caller's object or should create return the new object?
     }
 
     @Override
