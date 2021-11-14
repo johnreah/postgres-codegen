@@ -11,6 +11,7 @@ WORKDIR	/docker-entrypoint-initdb.d
 COPY	accounts-netbeans.sql .
 COPY	accounts-hibernate.sql .
 COPY	accounts-telosys-jpa.sql .
+COPY	accounts-springdata-jpa.sql .
 
 RUN	echo "create database accounts_netbeans;" > database-init.sql && \
 	echo "\\\c accounts_netbeans" >> database-init.sql && \
@@ -23,4 +24,8 @@ RUN	echo "create database accounts_netbeans;" > database-init.sql && \
     echo "create database accounts_telosys_jpa;" >> database-init.sql && \
     echo "\\\c accounts_telosys_jpa" >> database-init.sql && \
     cat accounts-telosys-jpa.sql >> database-init.sql  && \
-    rm -f accounts-telosys-jpa.sql
+    rm -f accounts-telosys-jpa.sql && \
+    echo "create database accounts_springdata_jpa;" >> database-init.sql && \
+    echo "\\\c accounts_springdata_jpa" >> database-init.sql && \
+    cat accounts-springdata-jpa.sql >> database-init.sql  && \
+    rm -f accounts-springdata-jpa.sql

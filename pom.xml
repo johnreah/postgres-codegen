@@ -15,6 +15,7 @@
         <module>accounts-netbeans</module>
         <module>accounts-hibernate</module>
         <module>accounts-telosys-jpa</module>
+        <module>accounts-springdata-jpa</module>
     </modules>
 
 </project>

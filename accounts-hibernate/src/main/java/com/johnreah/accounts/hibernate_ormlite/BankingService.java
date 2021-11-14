@@ -72,15 +72,20 @@ public class BankingService {
         linkCustomerAccountD.setCustomer(customer);
         linkCustomerAccountD.setAccount(depositAccount);
 
-        new TransactionManager(connectionSource).callInTransaction(() -> {
-            accountDao.create(currentAccount);
-            accountDao.create(depositAccount);
-            customerDao.create(customer);
-            linkCustomerAccountDao.create(linkCustomerAccount);
-//            customerDao.create(customer); // boom - causes rollback
-            linkCustomerAccountDao.create(linkCustomerAccountD);
-            return null;
-        });
+        try {
+            new TransactionManager(connectionSource).callInTransaction(() -> {
+                accountDao.create(currentAccount);
+                accountDao.create(depositAccount);
+                customerDao.create(customer);
+                linkCustomerAccountDao.create(linkCustomerAccount);
+//                customerDao.create(customer); // boom - causes rollback
+                linkCustomerAccountDao.create(linkCustomerAccountD);
+                return null;
+            });
+        } catch (Exception e) {
+            System.out.println("Exception caught during transaction: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void createAccountType(String description, String reference) throws SQLException {
