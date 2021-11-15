@@ -82,26 +82,26 @@
                             <jdk5>true</jdk5>
                             <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>
                             <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
-                            <templatePath>${basedir}/src/main/resources/templates</templatePath>
+<!--                            <templatePath>${basedir}/src/main/resources/templates</templatePath>-->
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>dao-generation</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>hbm2dao</goal>
-                        </goals>
-                        <configuration>
-                            <ejb3>true</ejb3>
-                            <jdk5>true</jdk5>
-                            <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>
-                            <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>dao-generation</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>hbm2dao</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <ejb3>true</ejb3>-->
+<!--                            <jdk5>true</jdk5>-->
+<!--                            <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>-->
+<!--                            <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                 </executions>
                 <configuration>
                     <propertyFile>src/main/conf/hibernate.properties</propertyFile>
-                    <revengFile>src/main/resources/hibernate.reveng.xml</revengFile>
+                    <revengFile>src/main/conf/hibernate.reveng.xml</revengFile>
                 </configuration>
             </plugin>
 

@@ -190,7 +190,7 @@ CREATE TABLE link_customer_account (
     account_id bigint
 );
 
---alter table link_customer_account add primary key(customer_id, account_id); -- JR
+alter table link_customer_account add primary key(customer_id, account_id); -- JR
 
 
 --
