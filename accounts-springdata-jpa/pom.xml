@@ -19,6 +19,7 @@
 <!--        <maven.compiler.source>15</maven.compiler.source>-->
 <!--        <maven.compiler.target>15</maven.compiler.target>-->
         <spring.boot.version>2.5.4</spring.boot.version>
+        <hibernate.tools.version>6.0.0.Alpha5</hibernate.tools.version>
         <postgres.version>42.2.23</postgres.version>
     </properties>
 
@@ -28,6 +29,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency> <!-- for @Stateless annotation -->
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb-api</artifactId>
+            <version>3.2.2</version>
         </dependency>
 
         <dependency>
@@ -43,5 +50,96 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.hibernate.tool</groupId>
+                <artifactId>hibernate-tools-maven</artifactId>
+                <version>${hibernate.tools.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate.tool</groupId>
+                        <artifactId>hibernate-tools-orm</artifactId>
+                        <version>${hibernate.tools.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgres.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>entity-generation</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>hbm2java</goal>
+                        </goals>
+                        <configuration>
+                            <ejb3>true</ejb3>
+                            <jdk5>true</jdk5>
+                            <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>
+                            <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
+                            <templatePath>${basedir}/src/main/resources/templates</templatePath>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>dao-generation</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>hbm2dao</goal>
+                        </goals>
+                        <configuration>
+                            <ejb3>true</ejb3>
+                            <jdk5>true</jdk5>
+                            <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>
+                            <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <propertyFile>src/main/conf/hibernate.properties</propertyFile>
+                    <revengFile>src/main/resources/hibernate.reveng.xml</revengFile>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <mainClass>com.johnreah.accounts.springdatajpa.App</mainClass>
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                </configuration>
+            </plugin>
+            -->
+
+        </plugins>
+    </build>
+
 
 </project>
