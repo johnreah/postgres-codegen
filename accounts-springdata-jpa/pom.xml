@@ -37,6 +37,18 @@
             <version>3.2.2</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.googlecode.jmapper-framework</groupId>-->
+<!--            <artifactId>jmapper-core</artifactId>-->
+<!--            <version>1.6.1.CR2</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -82,22 +94,8 @@
                             <jdk5>true</jdk5>
                             <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>
                             <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>
-<!--                            <templatePath>${basedir}/src/main/resources/templates</templatePath>-->
                         </configuration>
                     </execution>
-<!--                    <execution>-->
-<!--                        <id>dao-generation</id>-->
-<!--                        <phase>generate-sources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>hbm2dao</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <ejb3>true</ejb3>-->
-<!--                            <jdk5>true</jdk5>-->
-<!--                            <packageName>com.johnreah.accounts.springdatajpa.generated</packageName>-->
-<!--                            <outputDirectory>${project.build.directory}/generated-sources/hibernate</outputDirectory>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
                 </executions>
                 <configuration>
                     <propertyFile>src/main/conf/hibernate.properties</propertyFile>

@@ -1,6 +1,7 @@
 package com.johnreah.accounts.springdatajpa;
 
-import com.johnreah.accounts.springdatajpa.generated.AccountType;
+import com.johnreah.accounts.springdatajpa.generated.AccountTypeEntity;
+import com.johnreah.accounts.springdatajpa.services.BankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,7 +33,7 @@ public class App {
 
             bankingService.createAccountType("Current account", "CURRENT");
             bankingService.createAccountType("Deposit account", "DEPOSIT");
-            bankingService.listAccountTypes().forEach((AccountType accountType) -> System.out.println(accountType.getDescription()));
+            bankingService.listAccountTypes().forEach(accountType -> System.out.println(accountType.getDescription()));
 
             try {
                 bankingService.createBankingCustomerWithAccountsTransactional("John", "Reah", "john.reah+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
