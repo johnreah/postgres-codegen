@@ -22,12 +22,12 @@ The main drivers for the project were:
 - Generate the code as part of the Maven build. Treat it as ephemeral. Don't check it into your CMS. Generate it in
   the /target directory, and smile to yourself every time `mvn clean` deletes it. 
 
-- Don't tinker with the generated code if at all possible. You can customise Hibernate's entity generation using
+- Avoid tinkering with generated code if at all possible. You can customise Hibernate's entity generation using
   configuration options and templates, and you can use generated DAO classes by extension or composition to avoid
   modifying them. If you modify them, you have to commit lots of boilerplate to your code base, which is not very DRY
   and makes it hard to incorporate future releases of codegen libraries.
   
-- Favour an option that can be integrated relatively smoothly
+- Favour an option that can be integrated relatively smoothly into your target codebase
 
 What I learned:
 - There are quite a few approaches out there, with surprisingly different levels of support for DAO generation
