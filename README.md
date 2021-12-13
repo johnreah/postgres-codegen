@@ -1,11 +1,11 @@
 # Postgres Code Generation
 
 This project is a follow-on to [postgres-transactions](https://github.com/johnreah/postgres-transactions), which was an
-experiment with different approaches to RDBMS transaction management in Java. That project looked at JDBC, ORMLite and
-Spring Data JPA. Because my intention was to look for a solution to some problems in a real project that was already
-using code generation, this second project looked a bit more deeply into how those problems might be addressed without
-requiring huge code changes that would hurt productivity. This time the options included code generation from NetBeans,
-Hibernate Tools and Telosys.
+experiment with different approaches to RDBMS transaction management in Java. That project looked at JDBC, ORMLite,
+Spring Data JPA and Apache DeltaSpike. Because my intention was to look for a solution to some problems in a real
+project that was already using code generation, this second project looked a bit more deeply into how those problems 
+might be addressed without requiring huge code changes that would hurt productivity. This time the options included 
+code generation from NetBeans, Hibernate Tools and Telosys.
 
 The main drivers for the project were:
 - Enable transactions that span mutliple entities (the target project used generated DAO objects that assumed 
@@ -44,3 +44,10 @@ What I learned:
   persistence classes based on Spring Data JPA with its support for generating queries from method names
   (`findByAgeOrderByLastnameDesc` for example) and of course its support for declarative transactions seems an
   excellent choice. Whether it's the right one for our use case remains to be seen.
+- DeltaSpike doesn't really do code generation per se, so it's in the [postgres-transactions](https://github.com/johnreah/postgres-transactions) 
+  project rather than this one, but nevertheless its support for dynamically-generated repository classes is very
+  similar to Spring's, and it uses Interceptors to provide declarative `@Transactional` support even when
+  `transaction-type="RESOURCE_LOCAL"`. Contexts and Dependency Injection is provided natively in EE containers like
+  WildFly, but implementations like Weld SE offer CDI capability to Jave SE applications too, and in conjunction with
+  a selection of modules from the Apache DeltaSpike project you can achieve a lot of "enterprise" features without
+  needing to adopt either Spring or Java EE, which is an interesting and powerful option.

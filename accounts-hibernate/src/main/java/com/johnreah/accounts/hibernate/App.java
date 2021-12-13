@@ -19,13 +19,16 @@ public class App {
                 .createEntityManager();
 
         CustomerDAO customerDAO = new CustomerDAO(entityManager);
-        customerDAO.findAll().stream().forEach(customerDAO::destroy);
+        customerDAO.findAll().forEach(customerDAO::destroy);
 
         BankingService bankingService = new BankingService(entityManager);
-        bankingService.createBankingCustomer("John", "Reah", "john.reah+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
+        bankingService.createBankingCustomer("John", "Reah", "john.reah1+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
+        bankingService.createBankingCustomer("John", "Reah", "john.reah2+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
+        bankingService.createBankingCustomer("John", "Reah", "john.reah3+" + new SimpleDateFormat("yyyyMMdd-hhmmss").format(new Date()) + "@demo.com");
 
         System.out.println("Count: " + customerDAO.count());
-        customerDAO.findAll().stream().forEach(c -> System.out.println("Customer: " + c.toString() + " " + c.getEmail()));
+        customerDAO.findAll().forEach(c -> System.out.println("Customer: " + c.toString() + " " + c.getEmail()));
+
     }
 
 }
